@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.nxckywhxte</groupId>
+        <artifactId>card-game-engine</artifactId>
+        <version>0.0.1</version>
+    </parent>
+
+    <artifactId>engine-core</artifactId>
+    <name>Card Game Engine - Core</name>
+    <description>
+        Core domain model for card games.
+        Contains fundamental entities: Card, Suit, and Rank.
+        This module has no dependencies on other engine modules
+        and serves as the foundation for the entire framework.
+    </description>
+
+
+</project>

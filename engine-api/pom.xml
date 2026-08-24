@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.nxckywhxte</groupId>
+        <artifactId>card-game-engine</artifactId>
+        <version>0.0.1</version>
+    </parent>
+
+    <artifactId>engine-api</artifactId>
+    <name>Card Game Engine - API</name>
+    <description>
+        Public API contracts and interfaces for the card game engine.
+        Defines abstractions: Zone, Player, Move, GameState, and GameRules.
+        This module contains only interfaces and contracts,
+        enabling loose coupling and easy extensibility.
+    </description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.nxckywhxte</groupId>
+            <artifactId>engine-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>
