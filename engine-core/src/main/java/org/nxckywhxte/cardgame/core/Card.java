@@ -104,7 +104,7 @@ public record Card(Suit suit, Rank rank, boolean isFaceUp) implements Comparable
    * @return {@code true}, если достоинство карты — {@link Rank#RED_JOKER} или {@link
    *     Rank#BLACK_JOKER}
    */
-  public boolean isJocker() {
+  public boolean isJoker() {
     return rank.isJoker();
   }
 
