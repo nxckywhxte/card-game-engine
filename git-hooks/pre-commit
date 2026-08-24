@@ -1,0 +1,20 @@
+#!/bin/sh
+
+echo "🔍 Running pre-commit checks..."
+
+# Проверяем форматирование кода
+echo "📋 Checking code formatting with Spotless..."
+if ! ./mvnw spotless:check; then
+    echo "❌ Code formatting check failed. Run './mvnw spotless:apply' to fix."
+    exit 1
+fi
+
+# Запускаем тесты
+echo "🧪 Running tests..."
+if ! ./mvnw test; then
+    echo "❌ Tests failed. Fix them before committing."
+    exit 1
+fi
+
+echo "✅ All pre-commit checks passed!"
+exit 0

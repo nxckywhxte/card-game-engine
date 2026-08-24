@@ -36,6 +36,9 @@
 git clone https://github.com/nxckywhxte/card-game-engine.git
 cd card-game-engine
 
+# Установить Git-хуки (проверка форматирования и тестов перед коммитом)
+./git-hooks/setup.sh
+
 # Собрать проект
 ./mvnw clean verify          # Linux/macOS
 .\mvnw.cmd clean verify      # Windows
