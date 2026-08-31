@@ -57,6 +57,7 @@ import org.nxckywhxte.cardgame.core.Card;
  * @since 0.0.1
  * @see Player
  * @see Zone
+ * @see GameState
  */
 public interface Move {
   /**
