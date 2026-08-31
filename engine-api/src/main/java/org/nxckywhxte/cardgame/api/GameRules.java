@@ -2,7 +2,7 @@ package org.nxckywhxte.cardgame.api;
 
 import java.util.List;
 import java.util.Optional;
-import org.nxckywhxte.cardgame.api.exception.CardGameException;
+import org.nxckywhxte.cardgame.api.exception.IllegalMoveException;
 
 /**
  * Правила карточной игры.
@@ -25,15 +25,10 @@ import org.nxckywhxte.cardgame.api.exception.CardGameException;
  * (stateless) и могут использоваться как синглтоны. Все методы принимают текущее состояние игры и
  * возвращают результат, не изменяя входные данные.
  *
- * <h2>Валидация</h2>
+ * <h2>Разделение интерфейсов состояния</h2>
  *
- * <p>Методы {@link #initialize} и {@link #applyMove} выполняют валидацию входных данных и бросают
- * исключения при некорректных аргументах:
- *
- * <ul>
- *   <li>{@link IllegalArgumentException} — некорректные аргументы
- *   <li>{@link org.nxckywhxte.cardgame.api.exception.CardGameException} — нарушение правил игры
- * </ul>
+ * <p>Методы, которые только <b>читают</b> состояние, принимают {@link ReadableGameState}. Методы,
+ * которые <b>создают новые состояния</b>, возвращают {@link GameState}.
  *
  * <p>Пример использования:
  *
@@ -54,6 +49,7 @@ import org.nxckywhxte.cardgame.api.exception.CardGameException;
  *
  * @author nxckywhxte
  * @since 0.0.1
+ * @see ReadableGameState
  * @see GameState
  * @see Move
  */
@@ -83,6 +79,16 @@ public interface GameRules {
   int getMaximumPlayers();
 
   /**
+   * Возвращает требуемый размер колоды для этой игры.
+   *
+   * <p>Используется для валидации колоды при инициализации. Примеры: 36 для Дурака, 52 для
+   * Клондайка, 104 для Паука (2 колоды).
+   *
+   * @return требуемый размер колоды
+   */
+  int getRequiredDeckSize();
+
+  /**
    * Инициализирует новую игру с указанными колодой и игроками.
    *
    * <p>Создаёт начальное состояние игры: раздаёт карты игрокам, заполняет зоны, определяет козырь
@@ -93,7 +99,7 @@ public interface GameRules {
    * <ul>
    *   <li>Количество игроков должно быть в диапазоне {@link #getMinimumPlayers()} .. {@link
    *       #getMaximumPlayers()}
-   *   <li>Колода должна быть достаточного размера для игры
+   *   <li>Колода должна быть размера {@link #getRequiredDeckSize()}
    * </ul>
    *
    * @param deck колода для игры
@@ -108,12 +114,12 @@ public interface GameRules {
    *
    * <p>Метод не изменяет состояние игры. Он только проверяет, соответствует ли ход правилам игры.
    *
-   * @param state текущее состояние игры
+   * @param state текущее состояние игры (только чтение)
    * @param move ход для проверки
    * @return {@code true}, если ход допустим
    * @throws IllegalArgumentException если {@code state == null} или {@code move == null}
    */
-  boolean validateMove(GameState state, Move move);
+  boolean validateMove(ReadableGameState state, Move move);
 
   /**
    * Применяет ход к текущему состоянию игры.
@@ -121,16 +127,16 @@ public interface GameRules {
    * <p>Возвращает <b>новое</b> состояние игры после применения хода. Исходное состояние не
    * изменяется.
    *
-   * <p>Если ход невалиден, бросается исключение. Перед вызовом рекомендуется проверить ход через
-   * {@link #validateMove}.
+   * <p>Если ход невалиден, бросается {@link IllegalMoveException}. Перед вызовом рекомендуется
+   * проверить ход через {@link #validateMove}.
    *
-   * @param state текущее состояние игры
+   * @param state текущее состояние игры (только чтение)
    * @param move ход для применения
    * @return новое состояние игры после хода
    * @throws IllegalArgumentException если {@code state == null} или {@code move == null}
-   * @throws CardGameException если ход невалиден
+   * @throws IllegalMoveException если ход невалиден
    */
-  GameState applyMove(GameState state, Move move);
+  GameState applyMove(ReadableGameState state, Move move);
 
   /**
    * Проверяет, есть ли победитель в текущем состоянии игры.
@@ -138,11 +144,11 @@ public interface GameRules {
    * <p>Возвращает победителя, если игра завершена и победитель определён. Если игра не завершена
    * или победитель не определён (например, ничья), возвращается пустой {@link Optional}.
    *
-   * @param state текущее состояние игры
+   * @param state текущее состояние игры (только чтение)
    * @return {@link Optional} с победителем или пустой
    * @throws IllegalArgumentException если {@code state == null}
    */
-  Optional<Player> checkVictory(GameState state);
+  Optional<Player> checkVictory(ReadableGameState state);
 
   /**
    * Возвращает список всех допустимых ходов в текущем состоянии игры.
@@ -152,9 +158,9 @@ public interface GameRules {
    *
    * <p>Если игра завершена или допустимых ходов нет, возвращается пустой список.
    *
-   * @param state текущее состояние игры
+   * @param state текущее состояние игры (только чтение)
    * @return неизменяемый список допустимых ходов
    * @throws IllegalArgumentException если {@code state == null}
    */
-  List<Move> getAllowedMoves(GameState state);
+  List<Move> getAllowedMoves(ReadableGameState state);
 }
