@@ -1,6 +1,7 @@
 package org.nxckywhxte.cardgame.api;
 
 import java.util.List;
+import java.util.Optional;
 import org.nxckywhxte.cardgame.core.Card;
 
 /**
@@ -55,6 +56,19 @@ public interface Deck {
    * @throws EmptyDeckException если колода пуста
    */
   Card draw();
+
+  /**
+   * Пытается взять верхнюю карту из колоды, не бросая исключение.
+   *
+   * <p>Возвращает {@link Optional} с картой, если колода не пуста, или пустой {@link Optional},
+   * если карт не осталось.
+   *
+   * <p>Этот метод предпочтителен, когда пустая колода является ожидаемой частью игрового процесса
+   * (например, завершение раздачи).
+   *
+   * @return {@link Optional} с верхней картой или пустой {@link Optional}
+   */
+  Optional<Card> tryDraw();
 
   /**
    * Берёт указанное количество карт из колоды.
