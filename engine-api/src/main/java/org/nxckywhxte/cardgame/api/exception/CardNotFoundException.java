@@ -1,6 +1,7 @@
-package org.nxckywhxte.cardgame.api;
+package org.nxckywhxte.cardgame.api.exception;
 
 import java.io.Serial;
+import org.nxckywhxte.cardgame.api.Zone;
 import org.nxckywhxte.cardgame.core.Card;
 
 /**
@@ -13,7 +14,7 @@ import org.nxckywhxte.cardgame.core.Card;
  * @since 0.0.1
  * @see Zone#removeCard(Card)
  */
-public class CardNotFoundException extends RuntimeException {
+public class CardNotFoundException extends CardGameException {
   @Serial private static final long serialVersionUID = 1L;
 
   /**

@@ -3,6 +3,7 @@ package org.nxckywhxte.cardgame.api;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import org.nxckywhxte.cardgame.api.exception.EmptyDeckException;
 import org.nxckywhxte.cardgame.core.Card;
 
 /**

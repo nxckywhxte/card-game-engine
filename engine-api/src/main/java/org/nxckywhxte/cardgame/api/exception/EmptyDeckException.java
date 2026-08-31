@@ -1,8 +1,8 @@
-package org.nxckywhxte.cardgame.api;
+package org.nxckywhxte.cardgame.api.exception;
 
 import java.io.Serial;
 
-public class EmptyDeckException extends RuntimeException {
+public class EmptyDeckException extends CardGameException {
 
   @Serial private static final long serialVersionUID = 1L;
 

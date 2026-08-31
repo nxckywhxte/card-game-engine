@@ -3,6 +3,7 @@ package org.nxckywhxte.cardgame.api;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
+import org.nxckywhxte.cardgame.api.exception.CardNotFoundException;
 import org.nxckywhxte.cardgame.core.Card;
 
 /**
