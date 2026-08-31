@@ -122,15 +122,4 @@ public interface Zone {
    * @throws IllegalArgumentException если {@code predicate == null}
    */
   Zone filter(Predicate<Card> predicate);
-
-  /**
-   * Переворачивает все карты в зоне (меняет {@code isFaceUp} на противоположное).
-   *
-   * <p>Возвращает <b>новую</b> зону с перевёрнутыми картами. Исходная зона не изменяется.
-   *
-   * <p>Полезно при перемещении стопки карт, например, при перевороте сброса в колоду.
-   *
-   * @return новая зона с перевёрнутыми картами
-   */
-  Zone flipAll();
 }
