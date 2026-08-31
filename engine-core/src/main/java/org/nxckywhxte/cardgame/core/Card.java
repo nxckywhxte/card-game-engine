@@ -163,6 +163,55 @@ public record Card(Suit suit, Rank rank, boolean isFaceUp) implements Comparable
   }
 
   /**
+   * Создаёт карту лицом вверх (открытую).
+   *
+   * @param suit масть карты
+   * @param rank достоинство карты
+   * @return новая открытая карта
+   */
+  public static Card faceUp(Suit suit, Rank rank) {
+    return new Card(suit, rank, true);
+  }
+
+  /**
+   * Создаёт карту лицом вниз (закрытую).
+   *
+   * @param suit масть карты
+   * @param rank достоинство карты
+   * @return новая закрытая карта
+   */
+  public static Card faceDown(Suit suit, Rank rank) {
+    return new Card(suit, rank, false);
+  }
+
+  /**
+   * Возвращает числовое значение достоинства карты.
+   *
+   * @return числовое значение от 2 до 16
+   */
+  public int getValue() {
+    return rank.getValue();
+  }
+
+  /**
+   * Проверяет, является ли карта фигурой (валет, дама, король).
+   *
+   * @return {@code true}, если это фигурная карта
+   */
+  public boolean isFaceCard() {
+    return rank.isFaceCard();
+  }
+
+  /**
+   * Проверяет, является ли карта числовой (от 2 до 10).
+   *
+   * @return {@code true}, если это числовая карта
+   */
+  public boolean isNumeric() {
+    return rank.isNumeric();
+  }
+
+  /**
    * Сравнивает эту карту с другой по достоинству, затем по масти, затем по состоянию.
    *
    * <p>Порядок сравнения:

@@ -125,4 +125,49 @@ public interface ReadableGameState {
    * @return {@link Optional} с победителем или пустой
    */
   Optional<Player> getWinner();
+
+  /**
+   * Возвращает количество игроков в игре.
+   *
+   * @return количество игроков
+   */
+  default int getPlayerCount() {
+    return getPlayers().size();
+  }
+
+  /**
+   * Возвращает количество зон в игре.
+   *
+   * @return количество зон
+   */
+  default int getZoneCount() {
+    return getZones().size();
+  }
+
+  /**
+   * Проверяет, есть ли колода в игре.
+   *
+   * @return {@code true}, если колода присутствует
+   */
+  default boolean hasDeck() {
+    return getDeck().isPresent();
+  }
+
+  /**
+   * Проверяет, определён ли победитель.
+   *
+   * @return {@code true}, если победитель определён
+   */
+  default boolean hasWinner() {
+    return getWinner().isPresent();
+  }
+
+  /**
+   * Проверяет, завершена ли игра (синоним для {@link #isFinished()}).
+   *
+   * @return {@code true}, если игра завершена
+   */
+  default boolean isGameOver() {
+    return isFinished();
+  }
 }

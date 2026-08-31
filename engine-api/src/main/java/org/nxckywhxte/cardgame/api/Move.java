@@ -134,4 +134,21 @@ public interface Move {
     }
     return cards.getFirst();
   }
+
+  /**
+   * Возвращает человекочитаемое описание хода для логирования.
+   *
+   * @return описание хода
+   */
+  default String getDescription() {
+    return "Player "
+        + getPlayerId()
+        + " moves "
+        + cardCount()
+        + " card(s) from '"
+        + getSourceZoneId()
+        + "' to '"
+        + getTargetZoneId()
+        + "'";
+  }
 }
