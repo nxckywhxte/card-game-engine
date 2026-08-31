@@ -1,18 +1,20 @@
 package org.nxckywhxte.cardgame.api.exception;
 
 import java.io.Serial;
-import org.nxckywhxte.cardgame.api.Zone;
 import org.nxckywhxte.cardgame.core.Card;
 
 /**
  * Исключение, возникающее при попытке удалить карту, которой нет в зоне.
  *
- * <p>Это исключение является unchecked, так как попытка удалить несуществующую карту обычно
- * является ошибкой программирования или логики игры.
+ * <p>Это исключение является unchecked и наследуется от {@link CardGameException}. Оно возникает,
+ * когда вызывается {@code Zone.removeCard()} с картой, которая отсутствует в зоне.
+ *
+ * <p>Для безопасного удаления рекомендуется сначала проверить наличие карты через {@code
+ * Zone.contains()} или использовать другие методы зоны.
  *
  * @author nxckywhxte
  * @since 0.0.1
- * @see Zone#removeCard(Card)
+ * @see CardGameException
  */
 public class CardNotFoundException extends CardGameException {
   @Serial private static final long serialVersionUID = 1L;

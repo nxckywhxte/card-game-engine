@@ -17,6 +17,10 @@ import org.nxckywhxte.cardgame.core.Card;
  * Deck remaining = result.deck();
  * }</pre>
  *
+ * <h2>Потокобезопасность</h2>
+ *
+ * <p>Поскольку {@code DrawResult} является неизменяемым {@code record}, он потокобезопасен.
+ *
  * @param cards взятые карты в порядке взятия (от верха колоды)
  * @param deck новая колода без взятых карт
  * @author nxckywhxte
@@ -24,7 +28,8 @@ import org.nxckywhxte.cardgame.core.Card;
  * @see Deck
  */
 public record DrawResult(List<Card> cards, Deck deck) {
-  /** Компактный конструктор для валидации. */
+
+  /** Компактный конструктор для валидации и защитного копирования. */
   public DrawResult {
     if (cards == null) {
       throw new IllegalArgumentException("Cards list cannot be null");
@@ -32,6 +37,8 @@ public record DrawResult(List<Card> cards, Deck deck) {
     if (deck == null) {
       throw new IllegalArgumentException("Deck cannot be null");
     }
+    // Делаем список неизменяемым для защиты от мутации
+    cards = List.copyOf(cards);
   }
 
   /**
@@ -55,7 +62,7 @@ public record DrawResult(List<Card> cards, Deck deck) {
    * <p>Используется, когда ожидается ровно одна карта.
    *
    * @return единственная карта
-   * @throws IllegalStateException если карт не одна
+   * @throws IllegalStateException если карт не ровно одна
    */
   public Card singleCard() {
     if (cards.size() != 1) {
